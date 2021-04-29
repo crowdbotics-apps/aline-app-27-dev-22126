@@ -1,5 +1,12 @@
 import React from "react"
-import { View, Button, Text, StyleSheet, FlatList } from "react-native"
+import {
+  SafeAreaView,
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  FlatList
+} from "react-native"
 import { useSelector, useDispatch } from "react-redux"
 import { unwrapResult } from "@reduxjs/toolkit"
 import {
@@ -18,12 +25,11 @@ const ProductComponent = () => {
       const products = unwrapResult(resultAction)
       console.log(
         "success",
-        `Refreshed procuts list: ${products.data.length} before was ${entities.length}`
+        `Refreshed procuts list: ${products.length} before was ${entities.length}`
       )
       // end
     } catch (err) {
       console.log("error", `Fetch failed: ${err.message}`)
-      console.log(`error can also be here: ${api.error?.message}`)
     }
   }
 
@@ -38,37 +44,40 @@ const ProductComponent = () => {
   )
 
   return (
-    <View style={styles.body}>
-      <Text>There are {entities.length} available products.</Text>
-      <FlatList
-        data={entities}
-        renderItem={renderItem}
-        keyExtractor={item => `${item.id}`}
-      />
-      <View style={styles.buttons}>
-        <Button style={styles.button} title="Refresh" onPress={onUpdate} />
-        <Button
-          title="Create New Pants Product"
-          onPress={() =>
-            dispatch(
-              api_v1_product_create({
-                data: {
-                  name: "Pants",
-                  description: "Some Pants.",
-                  price: "233.00",
-                  quantity: 50
-                }
-              })
-            )
-          }
+    <SafeAreaView>
+      <View style={styles.body}>
+        <Text>There are {entities.length} available products.</Text>
+        <FlatList
+          data={entities}
+          renderItem={renderItem}
+          keyExtractor={item => `${item.id}`}
         />
+        <View style={styles.buttons}>
+          <Button style={styles.button} title="Refresh" onPress={onUpdate} />
+          <Button
+            title="Create New Pants Product"
+            onPress={() =>
+              dispatch(
+                api_v1_product_create({
+                  data: {
+                    name: "Pants",
+                    description: "Some Pants.",
+                    price: "233.00",
+                    quantity: 50
+                  }
+                })
+              )
+            }
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
   card: {
     padding: 10,
+    marginTop: 10,
     backgroundColor: "#d4f2e5",
     marginBottom: 5,
     borderColor: "#a9c1b7",
