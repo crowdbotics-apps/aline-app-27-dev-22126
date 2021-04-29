@@ -2,11 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { apiService } from "./api"
 export const api_v1_product_list = createAsyncThunk(
   "products/api_v1_product_list",
-  async payload => await apiService.api_v1_product_list(payload)
+  async payload => {
+    const response = await apiService.api_v1_product_list(payload)
+    return response.data
+  }
 )
 export const api_v1_product_create = createAsyncThunk(
   "products/api_v1_product_create",
-  async payload => await apiService.api_v1_product_create(payload)
+  async payload => {
+    const response = await apiService.api_v1_product_create(payload)
+    return response.data
+  }
 )
 export const api_v1_product_read = createAsyncThunk(
   "products/api_v1_product_read",
@@ -37,7 +43,7 @@ const productsSlice = createSlice({
     },
     [api_v1_product_list.fulfilled]: (state, action) => {
       if (state.api.loading === "pending") {
-        state.entities = action.payload.data
+        state.entities = action.payload
         state.api.loading = "idle"
       }
     },
@@ -54,7 +60,7 @@ const productsSlice = createSlice({
     },
     [api_v1_product_create.fulfilled]: (state, action) => {
       if (state.api.loading === "pending") {
-        state.entities.push(action.payload.data)
+        state.entities.push(action.payload)
         state.api.loading = "idle"
       }
     },
