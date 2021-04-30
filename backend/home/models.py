@@ -19,3 +19,8 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+    testperm = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+    )
