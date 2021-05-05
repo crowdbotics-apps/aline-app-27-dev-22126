@@ -20,7 +20,12 @@ class Product(models.Model):
         auto_now=True,
     )
     testperm = models.CharField(
-        max_length=256,
         null=True,
         blank=True,
+        max_length=256,
     )
+
+
+class NewModel(models.Model):
+    "Generated Model"
+    sdadasd = models.BigIntegerField()
