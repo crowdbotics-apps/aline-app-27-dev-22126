@@ -1,0 +1,36 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/backend"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  - python
+  ignore:
+  - dependency-name: boto3
+    versions:
+    - 1.17.61
+    - 1.17.62
+    - 1.17.63
+    - 1.17.64
+    - 1.17.65
+  - dependency-name: django-bootstrap4
+    versions:
+    - 3.0.0
+  - dependency-name: django
+    versions:
+    - "3.2"
+  commit-message:
+    prefix: Crowdbotics
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  - javascript
+  commit-message:
+    prefix: Crowdbotics
